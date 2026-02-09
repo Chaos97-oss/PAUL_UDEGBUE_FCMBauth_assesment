@@ -7,6 +7,7 @@ import com.example.core.security.filter.JwtAuthenticationFilter;
 import com.example.core.security.jwt.JwtProperties;
 import com.example.core.security.jwt.JwtTokenProvider;
 import com.example.core.security.logging.RequestLoggingFilter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -42,14 +43,14 @@ public class SecurityAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
-        return new JwtAuthenticationEntryPoint();
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint(ObjectMapper objectMapper) {
+        return new JwtAuthenticationEntryPoint(objectMapper);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtAccessDeniedHandler jwtAccessDeniedHandler() {
-        return new JwtAccessDeniedHandler();
+    public JwtAccessDeniedHandler jwtAccessDeniedHandler(ObjectMapper objectMapper) {
+        return new JwtAccessDeniedHandler(objectMapper);
     }
 
     @Bean

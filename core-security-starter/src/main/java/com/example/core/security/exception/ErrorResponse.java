@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 public class ErrorResponse {
     private int status;
     private String message;
-    private LocalDateTime timestamp;
+    private String timestamp;
 
     public ErrorResponse(int status, String message) {
         this.status = status;
         this.message = message;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = java.time.LocalDateTime.now().toString();
     }
 
     public int getStatus() {
@@ -29,11 +29,11 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public LocalDateTime getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }
