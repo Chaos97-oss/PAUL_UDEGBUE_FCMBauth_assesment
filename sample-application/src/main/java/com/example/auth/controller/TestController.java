@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class TestController {
 
+    private final com.example.auth.repository.UserRepository userRepository;
+
+    public TestController(com.example.auth.repository.UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @GetMapping("/public/health")
     public ResponseEntity<String> healthCheck() {
         return ResponseEntity.ok("Application is running. Status: Healthy");
@@ -25,7 +31,10 @@ public class TestController {
 
     @GetMapping("/admin/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> getAdminData() {
-        return ResponseEntity.ok("Admin Access: Authorized");
+    public ResponseEntity<java.util.List<com.example.auth.dto.UserDto>> getAdminData() {
+        java.util.List<com.example.auth.dto.UserDto> users = userRepository.findAll().stream()
+                .map(user -> new com.example.auth.dto.UserDto(user.getId(), user.getUsername(), user.getRoles()))
+                .collect(java.util.stream.Collectors.toList());
+        return ResponseEntity.ok(users);
     }
 }
