@@ -91,7 +91,10 @@ public class AuthIntegrationTest {
 
         mockMvc.perform(get("/api/admin/users")
                 .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].username").exists())
+                .andExpect(jsonPath("$[0].roles").exists());
     }
 
     private String obtainAccessToken(String username, String password) throws Exception {
