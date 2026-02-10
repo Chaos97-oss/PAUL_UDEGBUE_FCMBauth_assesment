@@ -40,7 +40,7 @@ class JwtTokenProviderTest {
     @BeforeEach
     void setUp() {
         when(jwtProperties.getSecretKey()).thenReturn(secretKey);
-        // Expiration is not used in all tests (e.g. validateToken), so we stub it in specific tests
+        
         jwtTokenProvider = new JwtTokenProvider(jwtProperties);
     }
 
