@@ -27,6 +27,9 @@ public class AuthResponse {
         this.expiresIn = expiresIn;
     }
 
+    public AuthResponse() {
+    }
+
     public Long getUserId() {
         return userId;
     }
